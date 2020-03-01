@@ -58,7 +58,7 @@ const store =  new Vuex.Store({
       context.commit('removeCardFromList', payload)
     },
     updateList(context, payload) {
-      context.commit('updateList',payload)
+      context.commit('updateList', payload)
     }
   },
   getters: {
@@ -66,8 +66,8 @@ const store =  new Vuex.Store({
       let count = 0
       state.lists.map(content => count += content.cards.length)
       return count
-    },
-  },
+    }
+  }
 })
 
 store.subscribe((mutation, state) => {
