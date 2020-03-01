@@ -2,9 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
+
 const savedLists = localStorage.getItem('trello-lists')
 
-const store = new Vuex.Store({
+const store =  new Vuex.Store({
   state: {
     lists: savedLists ? JSON.parse(savedLists): [
       {
@@ -30,12 +31,26 @@ const store = new Vuex.Store({
     addlist(state, payload) {
       state.lists.push({ title: payload.title, cards:[] })
     },
+    removelist(state, payload) {
+      state.lists.splice(payload.listIndex, 1)
+    },
+    addCardToList(state, payload) {
+      state.lists[payload.listIndex].cards.push({ body: payload.body })
+    },
   },
   actions: {
     addlist(context, payload) {
       context.commit('addlist', payload)
     },
-  }
+    removelist(context, payload) {
+      context.commit('removelist', payload)
+    },
+    addCardToList(context, payload) {
+      context.commit('addCardToList', payload)
+    },
+  },
+  getters: {
+  },
 })
 
 store.subscribe((mutation, state) => {
